@@ -1,5 +1,8 @@
-@main def hello: Unit =
-  println("Hello world!")
-  println(msg)
+import domain.*
+import java.time.LocalDate
 
-def msg = "I was compiled by Scala 3. :)"
+@main def main(args: String*): Unit = {
+  val minLimit = args(0)
+  val maxLimit = args(1)
+  println("[" + minLimit + ", " + maxLimit + "]")
+}
