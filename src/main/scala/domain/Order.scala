@@ -10,7 +10,7 @@ class Order(
   val placementDate: LocalDate
   ) {
 
-  private val grandTotal: Double = items.map(item => item.cost).sum[Double]
+  lazy val grandTotal: Double = items.map(item => item.cost).sum[Double]
 
   override def toString(): String = {
     return "Order:[" + customerName + ", " + contact + ", " + shippingAddress + ", " + grandTotal + ", " + placementDate + "]"
