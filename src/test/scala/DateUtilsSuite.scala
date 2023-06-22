@@ -1,4 +1,5 @@
-import domain.*
+import domain.entities.*
+import domain.entities.{Item, Order}
 import utils.DateUtils
 
 import java.time.LocalDate

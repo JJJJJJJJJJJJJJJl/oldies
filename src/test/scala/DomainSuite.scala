@@ -1,4 +1,4 @@
-import domain.*
+import domain.entities.*
 import utils.DateUtils
 
 import java.time.LocalDate

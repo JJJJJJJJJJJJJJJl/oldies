@@ -1,4 +1,4 @@
-package domain
+package domain.entities
 
 class Item(
   val product: Product,
