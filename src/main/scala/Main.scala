@@ -1,8 +1,15 @@
 import domain.*
-import java.time.LocalDate
+import utils.DateUtils
+
+import java.time.{LocalDate, ZoneId}
 
 @main def main(args: String*): Unit = {
-  val minLimit = args(0)
-  val maxLimit = args(1)
-  println("[" + minLimit + ", " + maxLimit + "]")
+  val minOrderBound: LocalDate = LocalDate.parse(args(0), DateUtils.dateTimeFormatter)
+  val maxOrderBound: LocalDate = LocalDate.parse(args(1), DateUtils.dateTimeFormatter)
+
+  /* TODO: Generate/Grab data
+  * */
+
+  /* TODO: Calculate results
+  * */
 }
