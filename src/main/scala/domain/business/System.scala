@@ -26,6 +26,7 @@ class System(
     require(productCreationDate.isBefore(presentDate))
     val productMonthsOld: Int = ChronoUnit.MONTHS.between(productCreationDate, presentDate).toInt
     val filteredAgeSets: List[String] = productAgeSets.filter(set => setContainsInt(set, productMonthsOld))
+    require(filteredAgeSets.head != null)
     filteredAgeSets.head
   }
 
@@ -43,5 +44,4 @@ class System(
     })
     results
   }
-
 }
