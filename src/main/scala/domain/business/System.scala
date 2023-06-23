@@ -25,8 +25,7 @@ class System(
     require(productCreationDate.isBefore(presentDate))
     val productMonthsOld: Int = ChronoUnit.MONTHS.between(productCreationDate, presentDate).toInt
     val filteredAgeSets: List[String] = productAgeSets.filter(set => setContainsInt(set, productMonthsOld))
-    require(filteredAgeSets.head != null)
-    filteredAgeSets.head
+    if (filteredAgeSets.size == 1) filteredAgeSets.head else null
   }
 
   def calculcateResults(): Map[String, Int] = {
@@ -38,7 +37,7 @@ class System(
     filteredOrders.foreach(order => {
       order.items.foreach(item => {
         val currentKey: String = mapProductAgeToAgeSet(presentDate, item.product.creationDate)
-        results = if (results.contains(currentKey)) results.updated(currentKey, results(currentKey) + 1) else results + (currentKey -> 1)
+        if (currentKey != null) results = if (results.contains(currentKey)) results.updated(currentKey, results(currentKey) + 1) else results + (currentKey -> 1)
       })
     })
     results
