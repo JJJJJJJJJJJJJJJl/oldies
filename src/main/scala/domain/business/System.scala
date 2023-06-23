@@ -18,7 +18,7 @@ class System(
     val splitted: Array[String] = if (set contains "-") set.split("-") else Array(set.stripPrefix(">"))
     if (splitted.length.eq(2))
       (productMonthsOld >= splitted.head.toInt  && productMonthsOld <= splitted.tail.head.toInt)
-    else splitted.head.toInt <= productMonthsOld
+    else splitted.head.toInt < productMonthsOld
   }
 
   def mapProductAgeToAgeSet(presentDate: LocalDate, productCreationDate: LocalDate): String = {
