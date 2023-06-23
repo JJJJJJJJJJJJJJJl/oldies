@@ -4,10 +4,8 @@ import domain.entities.{Item, Order}
 
 import java.time.{LocalDate, Period}
 
-/* Receives both the interval and data. Returns orders based on product age (“1-3”, “4-6”, “7-12”, “>12”)
-*
-*  TODO: Take arbitrary product age sets
-* */
+/* Receives both the interval and data. Returns orders grouped by product age
+**/
 
 class System(
   val orderInterval: List[LocalDate],
