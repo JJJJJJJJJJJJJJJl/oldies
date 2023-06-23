@@ -17,9 +17,8 @@ class System(
   def setContainsInt(set: String, productMonthsOld: Int): Boolean = {
     val splitted: Array[String] = if (set contains "-") set.split("-") else Array(set.stripPrefix(">"))
     if (splitted.length.eq(2))
-      splitted.head.toInt.eq(productMonthsOld) || splitted.tail.head.toInt.eq(productMonthsOld)
-      || (productMonthsOld > splitted.head.toInt  && productMonthsOld < splitted.tail.head.toInt)
-    else splitted.head.toInt.eq(productMonthsOld) || splitted.head.toInt < productMonthsOld
+      (productMonthsOld >= splitted.head.toInt  && productMonthsOld <= splitted.tail.head.toInt)
+    else splitted.head.toInt <= productMonthsOld
   }
 
   def mapProductAgeToAgeSet(presentDate: LocalDate, productCreationDate: LocalDate): String = {
