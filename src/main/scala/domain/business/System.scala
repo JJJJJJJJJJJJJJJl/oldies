@@ -14,14 +14,14 @@ class System(
   val productAgeSets: List[String]
   ) {
 
-  def setContainsInt(set: String, productMonthsOld: Int): Boolean = {
+  private def setContainsInt(set: String, productMonthsOld: Int): Boolean = {
     val splitted: Array[String] = if (set contains "-") set.split("-") else Array(set.stripPrefix(">"))
     if (splitted.length.eq(2))
       (productMonthsOld >= splitted.head.toInt  && productMonthsOld <= splitted.tail.head.toInt)
     else splitted.head.toInt < productMonthsOld
   }
 
-  def mapProductAgeToAgeSet(presentDate: LocalDate, productCreationDate: LocalDate): String = {
+  private def mapProductAgeToAgeSet(presentDate: LocalDate, productCreationDate: LocalDate): String = {
     require(productCreationDate.isBefore(presentDate))
     val productMonthsOld: Int = ChronoUnit.MONTHS.between(productCreationDate, presentDate).toInt
     val filteredAgeSets: List[String] = productAgeSets.filter(set => setContainsInt(set, productMonthsOld))
