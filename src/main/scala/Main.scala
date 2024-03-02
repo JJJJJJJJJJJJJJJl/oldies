@@ -31,6 +31,6 @@ import java.time.{LocalDate, ZoneId}
   /* Instantiate System and Calculate results
   * */
   val system: System = new System(List(minOrderBound, maxOrderBound), List(order1, order2, order3, order4), productAgeSets)
-  val results: Map[String, Int] = system.calculcateResults()
+  val results: Map[String, Int] = system.calculateResults()
   for ((k,v) <- results) println(k + ": " + v)
 }

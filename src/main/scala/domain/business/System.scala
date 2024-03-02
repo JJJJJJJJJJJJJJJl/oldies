@@ -15,20 +15,25 @@ class System(
   ) {
 
   private def setContainsInt(set: String, productMonthsOld: Int): Boolean = {
-    val splitted: Array[String] = if (set contains "-") set.split("-") else Array(set.stripPrefix(">"))
-    if (splitted.length.eq(2))
-      (productMonthsOld >= splitted.head.toInt  && productMonthsOld <= splitted.tail.head.toInt)
-    else splitted.head.toInt < productMonthsOld
+    val split: Array[String] = set.split("-")
+    split match {
+      case Array(start, end) => productMonthsOld >= start.toInt && productMonthsOld <= end.toInt
+      case Array(start) => start.stripPrefix(">").toInt < productMonthsOld
+      case _ => false
+    }
   }
 
-  private def mapProductAgeToAgeSet(presentDate: LocalDate, productCreationDate: LocalDate): String = {
+  private def mapProductAgeToAgeSet(presentDate: LocalDate, productCreationDate: LocalDate): Option[String] = {
     require(productCreationDate.isBefore(presentDate))
     val productMonthsOld: Int = ChronoUnit.MONTHS.between(productCreationDate, presentDate).toInt
     val filteredAgeSets: List[String] = productAgeSets.filter(set => setContainsInt(set, productMonthsOld))
-    if (filteredAgeSets.size == 1) filteredAgeSets.head else null
+    filteredAgeSets match {
+      case head :: Nil => Some(head)
+      case _ => None
+    }
   }
 
-  def calculcateResults(): Map[String, Int] = {
+  def calculateResults(): Map[String, Int] = {
     val presentDate: LocalDate = LocalDate.now()
 
     val filteredOrders: List[Order] = orders.filter(order => {
@@ -37,9 +42,12 @@ class System(
 
     val orderKeys = for {
       order <- filteredOrders
-      key <- order.items.flatMap(item => Option(mapProductAgeToAgeSet(presentDate, item.product.creationDate))).distinct
+      key <- order.items.flatMap(item => mapProductAgeToAgeSet(presentDate, item.product.creationDate)).distinct
     } yield key
 
-    orderKeys.groupBy(identity).view.mapValues(_.size).toMap
+    val orderKeysCount = orderKeys.groupBy(identity).view.mapValues(_.size).toMap
+
+    val initialMap = productAgeSets.map(_ -> 0).toMap
+    initialMap ++ orderKeysCount
   }
 }
