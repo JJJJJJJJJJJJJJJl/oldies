@@ -13,10 +13,10 @@ import java.time.{LocalDate, ZoneId}
 
   /* Generate/Grab data
   * */
-  val product1: Product = new Product("Chrome Hearts Tumbler", ProductCategory.Tops, 0.5, 1675, LocalDate.parse("2023-05-01 00:00:00", DateUtils.dateTimeFormatter))
-  val product2: Product = new Product("Chrome Hearts Tumbler", ProductCategory.Tops, 0.5, 1675, LocalDate.parse("2023-02-01 00:00:00", DateUtils.dateTimeFormatter))
-  val product3: Product = new Product("Chrome Hearts Tumbler", ProductCategory.Tops, 0.5, 1675, LocalDate.parse("2022-09-01 00:00:00", DateUtils.dateTimeFormatter))
-  val product4: Product = new Product("Chrome Hearts Tumbler", ProductCategory.Tops, 0.5, 1675, LocalDate.parse("2021-01-01 00:00:00", DateUtils.dateTimeFormatter))
+  val product1: Product = new Product("Chrome Hearts Tumbler", ProductCategory.Accessories, 0.5, 1675, LocalDate.parse("2023-01-05 00:00:00", DateUtils.dateTimeFormatter))
+  val product2: Product = new Product("Chrome Hearts Tumbler", ProductCategory.Accessories, 0.5, 1675, LocalDate.parse("2023-02-01 00:00:00", DateUtils.dateTimeFormatter))
+  val product3: Product = new Product("Chrome Hearts Tumbler", ProductCategory.Accessories, 0.5, 1675, LocalDate.parse("2022-09-01 00:00:00", DateUtils.dateTimeFormatter))
+  val product4: Product = new Product("Chrome Hearts Tumbler", ProductCategory.Accessories, 0.5, 1675, LocalDate.parse("2024-01-01 00:00:00", DateUtils.dateTimeFormatter))
 
   val item1: Item = new Item(product1, 10, 23)
   val item2: Item = new Item(product2, 10, 23)
