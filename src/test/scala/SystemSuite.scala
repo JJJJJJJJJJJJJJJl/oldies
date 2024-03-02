@@ -11,10 +11,10 @@ class SystemSuite extends munit.FunSuite {
 
     val productAgeSets: List[String] = List("1-3", "4-6", "7-12", ">12")
 
-    val product1: Product = new Product("Chrome Hearts Tumbler", ProductCategory.Tops, 0.5, 1675, LocalDate.parse("2023-05-01 00:00:00", DateUtils.dateTimeFormatter))
-    val product2: Product = new Product("Chrome Hearts Tumbler", ProductCategory.Tops, 0.5, 1675, LocalDate.parse("2023-02-01 00:00:00", DateUtils.dateTimeFormatter))
-    val product3: Product = new Product("Chrome Hearts Tumbler", ProductCategory.Tops, 0.5, 1675, LocalDate.parse("2022-09-01 00:00:00", DateUtils.dateTimeFormatter))
-    val product4: Product = new Product("Chrome Hearts Tumbler", ProductCategory.Tops, 0.5, 1675, LocalDate.parse("2021-01-01 00:00:00", DateUtils.dateTimeFormatter))
+    val product1: Product = new Product("Chrome Hearts Tumbler", ProductCategory.Accessories, 0.5, 1675, LocalDate.parse("2023-01-05 00:00:00", DateUtils.dateTimeFormatter))
+    val product2: Product = new Product("Chrome Hearts Tumbler", ProductCategory.Accessories, 0.5, 1675, LocalDate.parse("2023-02-01 00:00:00", DateUtils.dateTimeFormatter))
+    val product3: Product = new Product("Chrome Hearts Tumbler", ProductCategory.Accessories, 0.5, 1675, LocalDate.parse("2022-09-01 00:00:00", DateUtils.dateTimeFormatter))
+    val product4: Product = new Product("Chrome Hearts Tumbler", ProductCategory.Accessories, 0.5, 1675, LocalDate.parse("2024-01-01 00:00:00", DateUtils.dateTimeFormatter))
 
     val item1: Item = new Item(product1, 10, 23)
     val item2: Item = new Item(product2, 10, 23)
@@ -28,9 +28,12 @@ class SystemSuite extends munit.FunSuite {
 
     val system: System = new System(List(minOrderBound, maxOrderBound), List(order1, order2, order3, order4), productAgeSets)
 
-    val results: Map[String, Int] = system.calculcateResults()
+    val results: Map[String, Int] = system.calculateResults()
     assert(results.size.eq(4))
-    for ((k,v) <- results) assert(v.eq(2))
+    assert(results("1-3").eq(2))
+    assert(results("4-6").eq(0))
+    assert(results("7-12").eq(0))
+    assert(results(">12").eq(2))
   }
 
   test("System -- (1-6, 7-12, >12)") {
@@ -39,10 +42,10 @@ class SystemSuite extends munit.FunSuite {
 
     val productAgeSets: List[String] = List("1-6", "7-12", ">12")
 
-    val product1: Product = new Product("Chrome Hearts Tumbler", ProductCategory.Tops, 0.5, 1675, LocalDate.parse("2023-05-01 00:00:00", DateUtils.dateTimeFormatter))
-    val product2: Product = new Product("Chrome Hearts Tumbler", ProductCategory.Tops, 0.5, 1675, LocalDate.parse("2023-02-01 00:00:00", DateUtils.dateTimeFormatter))
-    val product3: Product = new Product("Chrome Hearts Tumbler", ProductCategory.Tops, 0.5, 1675, LocalDate.parse("2022-09-01 00:00:00", DateUtils.dateTimeFormatter))
-    val product4: Product = new Product("Chrome Hearts Tumbler", ProductCategory.Tops, 0.5, 1675, LocalDate.parse("2021-01-01 00:00:00", DateUtils.dateTimeFormatter))
+    val product1: Product = new Product("Chrome Hearts Tumbler", ProductCategory.Accessories, 0.5, 1675, LocalDate.parse("2023-01-05 00:00:00", DateUtils.dateTimeFormatter))
+    val product2: Product = new Product("Chrome Hearts Tumbler", ProductCategory.Accessories, 0.5, 1675, LocalDate.parse("2023-02-01 00:00:00", DateUtils.dateTimeFormatter))
+    val product3: Product = new Product("Chrome Hearts Tumbler", ProductCategory.Accessories, 0.5, 1675, LocalDate.parse("2022-09-01 00:00:00", DateUtils.dateTimeFormatter))
+    val product4: Product = new Product("Chrome Hearts Tumbler", ProductCategory.Accessories, 0.5, 1675, LocalDate.parse("2024-01-01 00:00:00", DateUtils.dateTimeFormatter))
 
     val item1: Item = new Item(product1, 10, 23)
     val item2: Item = new Item(product2, 10, 23)
@@ -56,10 +59,10 @@ class SystemSuite extends munit.FunSuite {
 
     val system: System = new System(List(minOrderBound, maxOrderBound), List(order1, order2, order3, order4), productAgeSets)
 
-    val results: Map[String, Int] = system.calculcateResults()
+    val results: Map[String, Int] = system.calculateResults()
     assert(results.size.eq(3))
-    assert(results("1-6").eq(4))
-    assert(results("7-12").eq(2))
+    assert(results("1-6").eq(2))
+    assert(results("7-12").eq(0))
     assert(results(">12").eq(2))
   }
 
@@ -69,10 +72,10 @@ class SystemSuite extends munit.FunSuite {
 
     val productAgeSets: List[String] = List("1-12", ">24")
 
-    val product1: Product = new Product("Chrome Hearts Tumbler", ProductCategory.Tops, 0.5, 1675, LocalDate.parse("2023-05-01 00:00:00", DateUtils.dateTimeFormatter))
-    val product2: Product = new Product("Chrome Hearts Tumbler", ProductCategory.Tops, 0.5, 1675, LocalDate.parse("2023-02-01 00:00:00", DateUtils.dateTimeFormatter))
-    val product3: Product = new Product("Chrome Hearts Tumbler", ProductCategory.Tops, 0.5, 1675, LocalDate.parse("2022-09-01 00:00:00", DateUtils.dateTimeFormatter))
-    val product4: Product = new Product("Chrome Hearts Tumbler", ProductCategory.Tops, 0.5, 1675, LocalDate.parse("2021-11-01 00:00:00", DateUtils.dateTimeFormatter))
+    val product1: Product = new Product("Chrome Hearts Tumbler", ProductCategory.Accessories, 0.5, 1675, LocalDate.parse("2023-01-05 00:00:00", DateUtils.dateTimeFormatter))
+    val product2: Product = new Product("Chrome Hearts Tumbler", ProductCategory.Accessories, 0.5, 1675, LocalDate.parse("2023-02-01 00:00:00", DateUtils.dateTimeFormatter))
+    val product3: Product = new Product("Chrome Hearts Tumbler", ProductCategory.Accessories, 0.5, 1675, LocalDate.parse("2022-09-01 00:00:00", DateUtils.dateTimeFormatter))
+    val product4: Product = new Product("Chrome Hearts Tumbler", ProductCategory.Accessories, 0.5, 1675, LocalDate.parse("2024-01-01 00:00:00", DateUtils.dateTimeFormatter))
 
     val item1: Item = new Item(product1, 10, 23)
     val item2: Item = new Item(product2, 10, 23)
@@ -86,9 +89,9 @@ class SystemSuite extends munit.FunSuite {
 
     val system: System = new System(List(minOrderBound, maxOrderBound), List(order1, order2, order3, order4), productAgeSets)
 
-    val results: Map[String, Int] = system.calculcateResults()
-    assert(results.size.eq(1))
-    assert(results("1-12").eq(6))
-    assert(!results.contains(">24"))
+    val results: Map[String, Int] = system.calculateResults()
+    assert(results.size.eq(2))
+    assert(results("1-12").eq(2))
+    assert(results(">24").eq(0))
   }
 }
