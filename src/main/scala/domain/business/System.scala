@@ -30,23 +30,16 @@ class System(
 
   def calculcateResults(): Map[String, Int] = {
     val presentDate: LocalDate = LocalDate.now()
-    var results: Map[String, Int] = Map[String, Int]()
+
     val filteredOrders: List[Order] = orders.filter(order => {
       order.placementDate.isAfter(orderInterval.head) && order.placementDate.isBefore(orderInterval.tail.head)
     })
 
-    filteredOrders.foreach(order => {
-      var ageSetKeyChecker: Map[String, Boolean] = Map[String, Boolean]()
-      order.items.foreach(item => {
-        val currentKey: String = mapProductAgeToAgeSet(presentDate, item.product.creationDate)
-        if (currentKey != null) {
-          if(!ageSetKeyChecker.contains(currentKey)) {
-            results = if (results.contains(currentKey)) results.updated(currentKey, results(currentKey) + 1) else results + (currentKey -> 1)
-            ageSetKeyChecker = if (ageSetKeyChecker.contains(currentKey)) ageSetKeyChecker.updated(currentKey, true) else ageSetKeyChecker + (currentKey -> true)
-          }
-        }
-      })
-    })
-    results
+    val orderKeys = for {
+      order <- filteredOrders
+      key <- order.items.flatMap(item => Option(mapProductAgeToAgeSet(presentDate, item.product.creationDate))).distinct
+    } yield key
+
+    orderKeys.groupBy(identity).view.mapValues(_.size).toMap
   }
 }
